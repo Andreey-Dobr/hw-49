@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete{% endblock %}
+
+
+
+{% block content %}
+    <h1>Вы уверены, что хотите удалить статью "{{ article.description}}"?</h1>
+
+    <form action="{% url "del" article.pk %}" method="post">
+        {% csrf_token %}
+        <p><input type="submit" value="Да"></p>
+        <p><a href="{% url 'to_do_view' article.pk %}">Отмена</a></p>
+    </form>
+    <h3>Содержимое статьи: </h3>
+    <p>{{ article.full_description }}</p>
+{% endblock %}
+
+
+
+
+
