@@ -1,0 +1,135 @@
+[
+{
+  "model": "webapp.status",
+  "pk": 1,
+  "fields": {
+    "name": "new"
+  }
+},
+{
+  "model": "webapp.status",
+  "pk": 2,
+  "fields": {
+    "name": "in_progress"
+  }
+},
+{
+  "model": "webapp.status",
+  "pk": 3,
+  "fields": {
+    "name": "done"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 1,
+  "fields": {
+    "name": "task"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 2,
+  "fields": {
+    "name": "Bug"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 3,
+  "fields": {
+    "name": "Enhancement"
+  }
+},
+{
+  "model": "webapp.article",
+  "pk": 1,
+  "fields": {
+    "description": "\u043e\u043f\u0438\u0441\u0430\u043d\u0438\u0435",
+    "full_description": "\u043f\u043e\u0434\u0440\u043e\u0431\u043d\u043e\u0435 \u043e\u043f\u0438\u0441\u0430\u043d\u0438\u0435",
+    "status": 1,
+    "date": "2019-12-19",
+    "updated_at": "2020-08-12T18:23:16.481Z",
+    "type": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "webapp.article",
+  "pk": 2,
+  "fields": {
+    "description": "\u043f\u0440\u0438\u0440\u0443\u0447\u0438\u0442\u044c \u0434\u0440\u0430\u043a\u043e\u043d\u0430",
+    "full_description": "khfuyhklnhghgds",
+    "status": 1,
+    "date": "2020-08-14",
+    "updated_at": "2020-08-12T17:25:31.810Z",
+    "type": [
+      2,
+      3
+    ]
+  }
+},
+{
+  "model": "webapp.article",
+  "pk": 3,
+  "fields": {
+    "description": "\u0432\u044b\u043a\u0438\u043d\u0443\u0442\u044c \u043a\u043e\u0441\u0442\u0438 \u0434\u0440\u0430\u043a\u043e\u043d\u0430",
+    "full_description": "bjhnjbhgcgfxgc",
+    "status": 2,
+    "date": "2020-08-15",
+    "updated_at": "2020-08-12T17:25:22.518Z",
+    "type": [
+      3
+    ]
+  }
+},
+{
+  "model": "webapp.article",
+  "pk": 4,
+  "fields": {
+    "description": "Description",
+    "full_description": "lknechiuechxiegseu",
+    "status": 1,
+    "date": "2020-08-14",
+    "updated_at": "2020-08-12T17:25:14.738Z",
+    "type": [
+      1
+    ]
+  }
+},
+{
+  "model": "webapp.article",
+  "pk": 5,
+  "fields": {
+    "description": "test",
+    "full_description": "test",
+    "status": 1,
+    "date": "2020-08-15",
+    "updated_at": "2020-08-12T18:00:00.422Z",
+    "type": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$K5vQnU6GLBez$jo/lHgCy1L++V6AaIRlAvR6B6tOrc/GmCusg5MNayqI=",
+    "last_login": "2020-08-12T11:39:11.704Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@mail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2020-08-12T11:38:47.721Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
