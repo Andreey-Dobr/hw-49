@@ -2,6 +2,11 @@
 
 {% block title %}Ask List{% endblock %}
 
+{% block menu %}
+    <li><a  href="{% url "to_do_update" article.pk %}">Update </a></li>
+    <li><a  href="{% url "del" article.pk %}">Delete</a></li>
+{% endblock %}
+
 {% block content %}
     <h1>{{ article.description }}</h1>
     <p>{{ article.status }}</p>
