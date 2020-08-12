@@ -45,15 +45,17 @@ class To_Do_Update_View(FormView):
 
     def get_initial(self):
         initial = {}
-        for key in 'description', 'full_description', 'date', 'type':
+        for key in 'description', 'full_description', 'date':
             initial[key] = getattr(self.article, key)
         return  initial
 
     def form_valid(self, form):
+        type= form.cleaned_data.pop('type')
         for key, value in form.cleaned_data.items():
             if value is not None:
                 setattr(self.article, key, value)
         self.article.save()
+        self.article.type.set(type)
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -70,10 +72,12 @@ class To_Do_Create_View(FormView):
 
     def form_valid(self, form):
         data = {}
+        type= form.cleaned_data.pop('type')
         for key, value in form.cleaned_data.items():
             if value is not None:
                 data[key] = value
         self.article = Article.objects.create(**data)
+        self.article.type.set(type)
         return super().form_valid(form)
 
     def get_success_url(self):
