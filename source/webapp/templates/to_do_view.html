@@ -11,7 +11,8 @@
     <h1>{{ article.description }}</h1>
     <p>{{ article.status }}</p>
     <p>{{ article.date }}</p>
-    <p>{{ article.full_description }}
+    <p>{{ article.full_description }}</p>
+    <p>{% for type in article.type.all %}{{ type.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
 
 
 
