@@ -22,11 +22,5 @@ class AskForm(forms.ModelForm):
         return description
 
 
-    def description(self):
-        description = self.cleaned_data['description']
-        f_d = self.cleaned_data['full_description']
-        
-        if description and f_d and description == f_d:
-            raise ValidationError('spam')
-
-        return description
+class SimpleSearchForm(forms.Form):
+    search = forms.CharField(max_length=100, required=False, label="Найти")
