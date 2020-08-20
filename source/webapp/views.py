@@ -4,15 +4,15 @@ from django.views.generic import View, TemplateView, FormView, ListView
 from webapp.forms import AskForm, SimpleSearchForm
 from django.db.models import Q
 from django.utils.http import urlencode
-from webapp.models import Article
+from webapp.models import TaskList
 from .base_view import FormView as CustomFormView
 from django.urls import reverse
 
 
-class IndexView(ListView):
+class TaskListView(ListView):
     template_name = 'index.html'
-    context_object_name = 'articles'
-    model = Article
+    context_object_name = 'tasks'
+    model = TaskList
     paginate_by = 10
     paginate_orphans = 0
 
@@ -44,68 +44,69 @@ class IndexView(ListView):
         return None
 
 
-class TO_Do_View(TemplateView):
-    template_name = 'to_do_view.html'
+class Task_View(TemplateView):
+    template_name = 'task_view.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         pk = self.kwargs.get('pk')
-        article = get_object_or_404(Article, pk=pk)
-        context['article'] = article
+        task = get_object_or_404(TaskList, pk=pk)
+        context['task'] = task
         return context
 
 
-class To_Do_Update_View(FormView):
+class Task_Update_View(FormView):
     template_name = 'update.html'
     form_class = AskForm
 
     def dispatch(self, request, *args, **kwargs):
-        self.article = self.get_object()
+        self.task = self.get_object()
         return super().dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['article'] = self.article
+        context['task'] = self.task
         return context
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['instance'] = self.article
+        kwargs['instance'] = self.task
         return kwargs
 
     def form_valid(self, form):
-        self.article = form.save()
+        self.task = form.save()
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('to_do_view', kwargs={'pk': self.article.pk})
+        return reverse('task_view', kwargs={'pk': self.task.pk})
 
     def get_object(self):
         pk = self.kwargs.get('pk')
-        return get_object_or_404(Article, pk=pk)
+        return get_object_or_404(TaskList, pk=pk)
 
 
-class To_Do_Create_View(FormView):
-    template_name = 'to_do_creat.html'
+class Task_Create(FormView):
+    template_name = 'creat.html'
     form_class = AskForm
 
     def form_valid(self, form):
-        self.article = form.save()
+        self.task = form.save()
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('to_do_view', kwargs={'pk': self.article.pk})
+        return reverse('task_view', kwargs={'pk': self.task.pk})
 
 
-class Delete_To_Do(TemplateView):
-    template_name = 'del_to_do.html'
+class Delete_Task(TemplateView):
+    template_name = 'del_task.html'
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         pk = self.kwargs.get('pk')
-        article = get_object_or_404(Article, pk=pk)
-        context['article'] = article
+        task = get_object_or_404(TaskList, pk=pk)
+        context['task'] = task
         return context
 
     def post(self, request, pk):
-        article = get_object_or_404(Article, pk=pk)
-        article.delete()
+        task = get_object_or_404(TaskList, pk=pk)
+        task.delete()
         return redirect('index')

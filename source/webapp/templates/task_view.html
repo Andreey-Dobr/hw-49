@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Ask List{% endblock %}
+
+{% block menu %}
+    <li><a  href="{% url "update" task.pk %}">Update </a></li>
+    <li><a  href="{% url "del" task.pk %}">Delete</a></li>
+{% endblock %}
+
+{% block content %}
+    <h1>{{ task.description }}</h1>
+    <p>{{ task.status }}</p>
+    <p>{{ task.date }}</p>
+    <p>{{ task.full_description }}</p>
+    <p>{% for type in task.type.all %}{{ type.name }} {% endfor %}</p>
+
+
+
+{% endblock %}
+
+
+
+
+

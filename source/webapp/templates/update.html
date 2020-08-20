@@ -3,14 +3,14 @@
 {% block title %}Update Article{% endblock %}
 
 {% block menu %}
-    <li><a href="{% url 'to_do_view' article.pk %}">Отмена</a></li>
+    <li><a href="{% url 'task_view' task.pk %}">Отмена</a></li>
 {% endblock %}
 
 
 {% block content %}
 
     <h1>Update Ask</h1>
-    {% url "to_do_update" pk=article.pk as action_url %}
+    {% url "update" pk=task.pk as action_url %}
     {% include 'partial/form.html' with action_url=action_url form_method='post' button_text='Update' %}
 
 

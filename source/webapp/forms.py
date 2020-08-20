@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.forms import widgets
-from .models import STATUS_CHOICES, TYPE_CHOICES, Type, Status, Article
+from .models import STATUS_CHOICES, TYPE_CHOICES, Type, Status, TaskList
 
 default_status = STATUS_CHOICES[0][0]
 default_type= TYPE_CHOICES[0][0]
@@ -9,7 +9,7 @@ default_type= TYPE_CHOICES[0][0]
 
 class AskForm(forms.ModelForm):
     class Meta:
-        model = Article
+        model = TaskList
         fields = ['description', 'full_description', 'status', 'type', 'date' ]
         widgets = {'date': forms.DateInput(attrs={'type':'date'})}
 

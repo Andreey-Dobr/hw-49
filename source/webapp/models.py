@@ -35,7 +35,7 @@ class Type(models.Model):
 
 
 
-class Article(models.Model):
+class TaskList(models.Model):
 
     description = models.CharField(max_length=3000, null=True, blank=True, verbose_name='Название')
     full_description = models.TextField(max_length=3000, null=False, verbose_name='Подробное описание')
