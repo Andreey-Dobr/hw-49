@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Project List{% endblock %}
+
+{% block menu %}
+    <li><a  href="{% url "del" project.pk %}">Delete project</a></li>
+    <li><a  href="{% url "create_task" project.pk %}">add task</a></li>
+{% endblock %}
+
+{% block content %}
+    <h1>{{ project.name }}</h1>
+    <p>{{ project.text }}</p>
+    <p>{{ project.date_start }}</p>
+    <p>{{ project.date_end }}</p>
+    <p>{% for type in task.type.all %}{{ type.name }} {% endfor %}</p>
+
+    <h3>Tasks:</h3>
+    {%  for task in project.tasks.all %}
+        <div class="box">
+            <h4>{{ task.description }} ({{ task.status }})</h4>
+            <p>{% for type in task.type.all %}{{ type.name }} {% endfor %}</p>
+        <table width="50%" border="0" cellpadding="5" cellspacing="0">
+         <col width="33%" valign="top">
+            <tr>
+             <td><a style="text-decoration: none;text-transform: uppercase;color:
+        #6a7dff" href="{% url "task" task.pk %}">more </a></td>
+           <td> <a style="text-decoration: none;text-transform: uppercase;color:
+        #6a7dff" href="{% url "update" task.pk %}">Update </a></td>
+                <td><a style="text-decoration: none;text-transform: uppercase;color:
+        #6a7dff" href="{% url 'delete' task.pk %}">Delete</a></td>
+            </tr>
+        </table>
+
+        </div>
+    {% endfor %}
+
+
+
+
+{% endblock %}
+
+
+
+
+

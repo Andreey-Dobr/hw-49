@@ -36,7 +36,7 @@ class Type(models.Model):
 
 
 class TaskList(models.Model):
-
+    project = models.ForeignKey('webapp.Project', related_name='tasks',on_delete=models.CASCADE,  verbose_name='Проект')
     description = models.CharField(max_length=3000, null=True, blank=True, verbose_name='Название')
     full_description = models.TextField(max_length=3000, null=False, verbose_name='Подробное описание')
     status = models.ForeignKey('webapp.Status', related_name='status', on_delete=models.PROTECT
@@ -48,3 +48,10 @@ class TaskList(models.Model):
 
     def __str__(self):
         return "{}. {}".format(self.pk, self.description)
+
+
+class Project(models.Model):
+    name = models.CharField(max_length=100, verbose_name='Название проекта')
+    text = models.TextField(max_length=3000, verbose_name='описание проекта')
+    date_start = models.DateTimeField(max_length=25, verbose_name='дата создания')
+    date_end = models.DateTimeField(max_length=25, null=True, verbose_name='дата закрытия')

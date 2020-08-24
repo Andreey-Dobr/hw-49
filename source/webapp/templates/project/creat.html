@@ -4,7 +4,7 @@
 
 {% block content %}
     <h1>Create to do</h1>
-    {% url "to_do_create" as action_url %}
+
     {% include 'partial/form.html' with action_url=action_url form_method='post' button_text='create'   %}
 
 
