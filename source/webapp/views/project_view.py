@@ -63,7 +63,7 @@ class Project_Update_View(UpdateView):
     context_object_name = 'project'
 
     def get_success_url(self):
-        return reverse('task_view', kwargs={'pk': self.object.pk})
+        return reverse('project_view', kwargs={'pk': self.object.pk})
 
 
 class ProjectCreate(CreateView):
@@ -72,7 +72,7 @@ class ProjectCreate(CreateView):
     model = Project
 
     def get_success_url(self):
-        return reverse('task_view', kwargs={'pk': self.object.pk})
+        return reverse('project_view', kwargs={'pk': self.object.pk})
 
 
 

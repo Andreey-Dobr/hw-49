@@ -1,5 +1,5 @@
 from django.shortcuts import  get_object_or_404, redirect
-from django.views.generic import View, TemplateView, FormView, ListView, CreateView, UpdateView
+from django.views.generic import View, TemplateView, FormView, ListView, CreateView, UpdateView, DeleteView
 from webapp.forms import AskForm, SimpleSearchForm
 from webapp.models import TaskList, Project
 from django.urls import reverse
@@ -40,18 +40,13 @@ class Task_Create(CreateView):
 
 
 
-class Delete_Task(TemplateView):
+class Delete_Task(DeleteView):
     template_name = 'task/del_task.html'
+    model = TaskList
 
-    def get_context_data(self, **kwargs):
 
-        context = super().get_context_data(**kwargs)
-        pk = self.kwargs.get('pk')
-        task = get_object_or_404(TaskList, pk=pk)
-        context['task'] = task
-        return context
+    def get(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
 
-    def post(self, request, pk):
-        task = get_object_or_404(TaskList, pk=pk)
-        task.delete()
-        return redirect('task/delet.html')
+    def get_success_url(self):
+        return reverse('project_view', kwargs={'pk': self.object.project.pk})

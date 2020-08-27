@@ -10,7 +10,7 @@
     <form action="{% url "del" project.pk %}" method="post">
         {% csrf_token %}
         <p><input type="submit" value="Да"></p>
-        <p><a href="{% url 'task_view' project.pk %}">Отмена</a></p>
+        <p><a href="{% url 'project_view' project.pk %}">Отмена</a></p>
     </form>
 
 
