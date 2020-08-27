@@ -41,7 +41,6 @@ class Task_Create(CreateView):
 
 
 class Delete_Task(DeleteView):
-    template_name = 'task/del_task.html'
     model = TaskList
 
 

@@ -7,7 +7,7 @@
 {% block content %}
     <h1>Вы уверены, что хотите удалить задачу "{{ task.description}}"?</h1>
 
-    <form action="{% url "delete" task.pk %}" method="post">
+    <form action="{% url "delete" project.pk %}" method="post">
         {% csrf_token %}
         <p><input type="submit" value="Да"></p>
         <p><a href="{% url 'task' task.pk %}">Отмена</a></p>
