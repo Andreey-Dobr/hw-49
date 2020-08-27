@@ -1,5 +1,5 @@
 from django.shortcuts import  get_object_or_404, redirect
-from django.views.generic import View, TemplateView, FormView, ListView, CreateView
+from django.views.generic import View, TemplateView, FormView, ListView, CreateView, UpdateView
 from webapp.forms import AskForm, SimpleSearchForm
 from webapp.models import TaskList, Project
 from django.urls import reverse
@@ -16,34 +16,14 @@ class Task_View(TemplateView):
         return context
 
 
-class Task_Update_View(FormView):
+class Task_Update_View(UpdateView):
+    model = TaskList
     template_name = 'task/update.html'
     form_class = AskForm
-
-    def dispatch(self, request, *args, **kwargs):
-        self.task = self.get_object()
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['task'] = self.task
-        return context
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['instance'] = self.task
-        return kwargs
-
-    def form_valid(self, form):
-        self.task = form.save()
-        return super().form_valid(form)
+    context_object_name = 'task'
 
     def get_success_url(self):
-        return reverse('task_view', kwargs={'pk': self.task.pk})
-
-    def get_object(self):
-        pk = self.kwargs.get('pk')
-        return get_object_or_404(TaskList, pk=pk)
+        return reverse('task', kwargs={'pk': self.object.project.pk})
 
 
 class Task_Create(CreateView):
