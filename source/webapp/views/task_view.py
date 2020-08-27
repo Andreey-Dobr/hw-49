@@ -64,6 +64,7 @@ class Delete_Task(TemplateView):
     template_name = 'task/del_task.html'
 
     def get_context_data(self, **kwargs):
+
         context = super().get_context_data(**kwargs)
         pk = self.kwargs.get('pk')
         task = get_object_or_404(TaskList, pk=pk)
@@ -73,4 +74,4 @@ class Delete_Task(TemplateView):
     def post(self, request, pk):
         task = get_object_or_404(TaskList, pk=pk)
         task.delete()
-        return redirect('project/index')
+        return redirect('task/delet.html')

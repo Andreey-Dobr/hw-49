@@ -3,12 +3,12 @@ from asyncio import tasks
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseNotAllowed
-from django.views.generic import View, TemplateView, FormView, ListView, DetailView, CreateView
+from django.views.generic import View, TemplateView, FormView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from webapp.forms import AskForm, SimpleSearchForm, ProjectForm
 from django.db.models import Q
 from django.utils.http import urlencode
 from webapp.models import TaskList, Project
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 
 class ProjectListView(ListView):
@@ -54,40 +54,17 @@ class ProjectView(DetailView):
 
     def get_context_data(self,  **kwargs):
         context = super().get_context_data(**kwargs)
-        #tasks = self.project.tasks.all()
-        #context['tasks'] = tasks
         return context
 
-
-
-class Task_Update_View(FormView):
-    template_name = 'update.html'
-    form_class = AskForm
-
-    def dispatch(self, request, *args, **kwargs):
-        self.task = self.get_object()
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['task'] = self.task
-        return context
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs['instance'] = self.task
-        return kwargs
-
-    def form_valid(self, form):
-        self.task = form.save()
-        return super().form_valid(form)
+class Project_Update_View(UpdateView):
+    model = Project
+    template_name = 'project/update.html'
+    form_class = ProjectForm
+    context_object_name = 'project'
 
     def get_success_url(self):
-        return reverse('task_view', kwargs={'pk': self.task.pk})
+        return reverse('task_view', kwargs={'pk': self.object.pk})
 
-    def get_object(self):
-        pk = self.kwargs.get('pk')
-        return get_object_or_404(TaskList, pk=pk)
 
 class ProjectCreate(CreateView):
     template_name = 'project/creat.html'
@@ -99,17 +76,10 @@ class ProjectCreate(CreateView):
 
 
 
-class Delete_Project(TemplateView):
+class Delete_Project(DeleteView):
     template_name = 'project/del_task.html'
+    model = Project
+    context_key = 'project'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        pk = self.kwargs.get('pk')
-        project = get_object_or_404(Project, pk=pk)
-        context['project'] = project
-        return context
-
-    def post(self, request, pk):
-        project = get_object_or_404(Project, pk=pk)
-        project.delete()
-        return redirect('index')
+    def get_success_url(self):
+        return reverse('index')
