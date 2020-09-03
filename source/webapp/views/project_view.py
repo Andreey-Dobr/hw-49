@@ -1,5 +1,7 @@
 from asyncio import tasks
 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseNotAllowed
@@ -26,6 +28,7 @@ class ProjectListView(ListView):
         return context
 
 
+
 class ProjectView(DetailView):
     template_name = 'project/task_view.html'
     model = Project
@@ -35,7 +38,7 @@ class ProjectView(DetailView):
         context = super().get_context_data(**kwargs)
         return context
 
-class Project_Update_View(UpdateView):
+class Project_Update_View(LoginRequiredMixin,UpdateView):
     model = Project
     template_name = 'project/update.html'
     form_class = ProjectForm
@@ -45,7 +48,7 @@ class Project_Update_View(UpdateView):
         return reverse('project_view', kwargs={'pk': self.object.pk})
 
 
-class ProjectCreate(CreateView):
+class ProjectCreate(LoginRequiredMixin,CreateView):
     template_name = 'project/creat.html'
     form_class = ProjectForm
     model = Project
@@ -55,7 +58,7 @@ class ProjectCreate(CreateView):
 
 
 
-class Delete_Project(DeleteView):
+class Delete_Project(LoginRequiredMixin,DeleteView):
     template_name = 'project/del_task.html'
     model = Project
     context_key = 'project'

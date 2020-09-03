@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import  get_object_or_404, redirect
 from django.views.generic import View, TemplateView, FormView, ListView, CreateView, UpdateView, DeleteView
 from webapp.forms import AskForm, SimpleSearchForm
@@ -16,7 +17,7 @@ class Task_View(TemplateView):
         return context
 
 
-class Task_Update_View(UpdateView):
+class Task_Update_View(LoginRequiredMixin,UpdateView):
     model = TaskList
     template_name = 'task/update.html'
     form_class = AskForm
@@ -26,7 +27,7 @@ class Task_Update_View(UpdateView):
         return reverse('task', kwargs={'pk': self.object.project.pk})
 
 
-class Task_Create(CreateView):
+class Task_Create(LoginRequiredMixin,CreateView):
     template_name = 'task/creat.html'
     form_class = AskForm
     model = TaskList
@@ -40,7 +41,7 @@ class Task_Create(CreateView):
 
 
 
-class Delete_Task(DeleteView):
+class Delete_Task(LoginRequiredMixin,DeleteView):
     model = TaskList
 
 

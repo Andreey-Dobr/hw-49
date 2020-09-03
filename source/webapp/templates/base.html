@@ -16,13 +16,22 @@
        <div class="container">
            <ul class="menu">
                <li><a href="{% url 'index' %}">Title</a></li>
-               <li><a href="{% url 'create' %}">Create Project</a></li>
+
                <li>{% include 'partial/simple_search.html' %}</li>
-               {% block menu %}{% endblock %}
+           {% block menu %}{% endblock %}
+           {% if request.user.is_authenticated %}
+               <li><a href="{% url 'create' %}">Create Project</a></li>
+               {% block menu_links %}{% endblock %}
+               <li class="menu-right"><a href="{% url 'logout' %}" class="nav-link">Выход</a></li>
+           {% else %}
+               <li class="menu-right"><a href="{% url 'login' %}" class="nav-link">Вход</a></li>
+           {% endif %}
+
            </ul>
        </div>
     </nav>
     <div class="container">
+
         {% block content %}{% endblock %}
     </div>
 </body>
