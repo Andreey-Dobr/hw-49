@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from accounts.views import login_view, logout_view
+from accounts.views import login_view, logout_view, RegisterView
 from webapp.views import ProjectListView, ProjectCreate, Delete_Task, \
     ProjectView, Task_Update_View, Task_View, Task_Create, Delete_Project, Project_Update_View
 
@@ -35,6 +35,7 @@ urlpatterns = [
     path('<int:pk>/delet_task/', Delete_Task.as_view(), name='delete'),
 
     path('accounts/login', login_view, name='login'),
-    path('accounts/logout/', logout_view, name='logout')
+    path('accounts/logout/', logout_view, name='logout'),
+    path('create/', RegisterView.as_view(), name='create')
 
 ]
