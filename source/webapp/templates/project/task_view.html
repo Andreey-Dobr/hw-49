@@ -3,8 +3,10 @@
 {% block title %}Project List{% endblock %}
 
 {% block menu %}
+    {% if perms.webapp.change_project or project.user == request.user %}
     <li><a  href="{% url "del" project.pk %}">Delete project</a></li>
     <li><a  href="{% url "create_task" project.pk %}">add task</a></li>
+    {% endif %}
 {% endblock %}
 
 {% block content %}

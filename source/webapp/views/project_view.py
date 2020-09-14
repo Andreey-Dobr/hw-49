@@ -1,7 +1,7 @@
 from asyncio import tasks
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseNotAllowed
@@ -38,11 +38,16 @@ class ProjectView(DetailView):
         context = super().get_context_data(**kwargs)
         return context
 
-class Project_Update_View(LoginRequiredMixin,UpdateView):
+class Project_Update_View(PermissionRequiredMixin,UpdateView):
     model = Project
     template_name = 'project/update.html'
     form_class = ProjectForm
     context_object_name = 'project'
+    permission_required = 'webapp.change_project'
+
+    def has_permission(self):
+        project = self.get_object()
+        return super().has_permission() or project.user == self.request.user
 
     def get_success_url(self):
         return reverse('project_view', kwargs={'pk': self.object.pk})
@@ -62,10 +67,12 @@ class ProjectCreate(LoginRequiredMixin,CreateView):
 
 
 
-class Delete_Project(LoginRequiredMixin,DeleteView):
+class Delete_Project(UserPassesTestMixin,DeleteView):
     template_name = 'project/del_task.html'
     model = Project
     context_key = 'project'
+    success_url = reverse_lazy('webapp:index')
 
-    def get_success_url(self):
-        return reverse('index')
+    def test_func(self):
+        return self.request.user.has_perm('webapp.del_task') or \
+               self.get_object().author == self.request.user

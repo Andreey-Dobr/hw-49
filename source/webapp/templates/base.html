@@ -16,19 +16,21 @@
        <div class="container">
            <ul class="menu">
                <li><a href="{% url 'index' %}">Title</a></li>
+           {% if perms.webapp.change_project or project.user == request.user %}
 
-               <li>{% include 'partial/simple_search.html' %}</li>
-           {% block menu %}{% endblock %}
-               <li><a href="{% url 'create' %}">Create Project</a></li>
-           {% if request.user.is_authenticated %}
+                <li><a href="{% url 'create' %}">Create Project</a></li>
+                {% block menu %}{% endblock %}
+            {% endif %}
 
-               {% block menu_links %}{% endblock %}
-               <li class="menu-right"><a href="{% url 'logout' %}" class="nav-link">Выход</a></li>
+           {% block auth_menu %}
+                {% if request.user.is_authenticated %}
+                <li class="menu-right"><a href="{% url 'logout' %}" class="nav-link">Выход</a></li>
            {% else %}
                <li class="menu-right"><a href="{% url 'login' %}?next={{ request.get_full_path }}" class="nav-link">Вход</a></li>
                <li class="menu-right"><a href="{% url 'register' %}?next={{ request.get_full_path }}" class="nav-link">Регистрация</a></li>
            {% endif %}
-
+               <li>{% include 'partial/simple_search.html' %}</li>
+           {% endblock %}
            </ul>
        </div>
     </nav>
@@ -36,5 +38,12 @@
 
         {% block content %}{% endblock %}
     </div>
+
+
+
+
+
+
+
 </body>
 </html>

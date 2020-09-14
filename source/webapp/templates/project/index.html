@@ -13,6 +13,7 @@
         <h1 style="text-transform: capitalize ;"><a style="text-decoration: none;text-transform: uppercase;color:
         #6a7dff" href="{% url "project_view" project.pk %}"> <span style="color: #20B2AA">{{ project.name }}</span> </a></h1>
         <p><span style="color: #008080; font-size: 20px">{{ project.text }}</span></p>
+            {% if perms.webapp.change_project or project.user == request.user %}
         <table width="50%" border="0" cellpadding="5" cellspacing="0">
          <col width="33%" valign="top">
             <tr>
@@ -23,6 +24,7 @@
         #6a7dff" href="{% url "del" project.pk %}">Delete</a></td>
             </tr>
         </table>
+        {% endif %}
 
     </div>
     {% endfor %}
