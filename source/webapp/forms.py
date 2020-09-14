@@ -28,6 +28,8 @@ class SimpleSearchForm(forms.Form):
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
-        fields = ['name', 'text', 'date_start', 'date_end']
+
+        fields = ['name', 'text', 'date_start', 'date_end', 'user']
         widgets = {'date_start': forms.DateInput(attrs={'type': 'date'}),
-                   'date_end': forms.DateInput(attrs={'type': 'date'})}
+                   'date_end': forms.DateInput(attrs={'type': 'date'}),
+                   'user': forms.CheckboxSelectMultiple()}

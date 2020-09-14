@@ -53,6 +53,10 @@ class ProjectCreate(LoginRequiredMixin,CreateView):
     form_class = ProjectForm
     model = Project
 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
     def get_success_url(self):
         return reverse('project_view', kwargs={'pk': self.object.pk})
 

@@ -10,13 +10,13 @@
 
     {% for project in projects %}
         <div style="border: outset 5px #B0E0E6;margin-top: 10px; border-radius: 40px 10px">
-        <h1 style="text-transform: capitalize ;"> <span style="color: #20B2AA">{{ project.name }}   </span></h1>
+        <h1 style="text-transform: capitalize ;"><a style="text-decoration: none;text-transform: uppercase;color:
+        #6a7dff" href="{% url "project_view" project.pk %}"> <span style="color: #20B2AA">{{ project.name }}</span> </a></h1>
         <p><span style="color: #008080; font-size: 20px">{{ project.text }}</span></p>
         <table width="50%" border="0" cellpadding="5" cellspacing="0">
          <col width="33%" valign="top">
             <tr>
-             <td><a style="text-decoration: none;text-transform: uppercase;color:
-        #6a7dff" href="{% url "project_view" project.pk %}">more </a></td>
+
             <td><a style="text-decoration: none;text-transform: uppercase;color:
         #6a7dff" href="{% url "update_project" project.pk %}">update </a></td>
                 <td><a style="text-decoration: none;text-transform: uppercase;color:

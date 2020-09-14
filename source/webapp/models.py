@@ -1,3 +1,5 @@
+from django.contrib import auth
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
 
@@ -55,3 +57,4 @@ class Project(models.Model):
     text = models.TextField(max_length=3000, verbose_name='описание проекта')
     date_start = models.DateTimeField(max_length=25, verbose_name='дата создания')
     date_end = models.DateTimeField(max_length=25, null=True, verbose_name='дата закрытия')
+    user = models.ForeignKey('auth.User', on_delete=models.SET_DEFAULT, default=1, related_name='projects', verbose_name='Юзер')

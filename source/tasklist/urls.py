@@ -36,6 +36,6 @@ urlpatterns = [
 
     path('accounts/login', login_view, name='login'),
     path('accounts/logout/', logout_view, name='logout'),
-    path('create/', RegisterView.as_view(), name='create')
+    path('create/', RegisterView.as_view(), name='register')
 
 ]

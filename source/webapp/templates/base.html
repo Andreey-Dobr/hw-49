@@ -19,13 +19,14 @@
 
                <li>{% include 'partial/simple_search.html' %}</li>
            {% block menu %}{% endblock %}
-           {% if request.user.is_authenticated %}
                <li><a href="{% url 'create' %}">Create Project</a></li>
+           {% if request.user.is_authenticated %}
+
                {% block menu_links %}{% endblock %}
                <li class="menu-right"><a href="{% url 'logout' %}" class="nav-link">Выход</a></li>
            {% else %}
                <li class="menu-right"><a href="{% url 'login' %}?next={{ request.get_full_path }}" class="nav-link">Вход</a></li>
-               <li class="menu-right"><a href="{% url 'create' %}?next={{ request.get_full_path }}" class="nav-link">Регистрация</a></li>
+               <li class="menu-right"><a href="{% url 'register' %}?next={{ request.get_full_path }}" class="nav-link">Регистрация</a></li>
            {% endif %}
 
            </ul>
