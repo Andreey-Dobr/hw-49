@@ -5,6 +5,25 @@ from django.urls import reverse
 from django.views.generic import CreateView
 
 from accounts.forms import MyUserCreationForm
+from django.views.generic import DetailView
+
+from django.contrib.auth import get_user_model
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+from django.core.paginator import Paginator
+
+
+
+
+class UserDetailView(LoginRequiredMixin, DetailView):
+    model = get_user_model()
+    template_name = ' user_detail.html'
+    context_object_name = 'user_obj'
+
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs)
+
 
 
 def login_view(request):

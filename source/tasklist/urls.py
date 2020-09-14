@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
 
-from accounts.views import login_view, logout_view, RegisterView
+from django.conf.urls.static import static
+from accounts.views import login_view, logout_view, RegisterView, UserDetailView
 from webapp.views import ProjectListView, ProjectCreate, Delete_Task, \
     ProjectView, Task_Update_View, Task_View, Task_Create, Delete_Project, Project_Update_View
 
@@ -36,6 +38,8 @@ urlpatterns = [
 
     path('accounts/login', login_view, name='login'),
     path('accounts/logout/', logout_view, name='logout'),
-    path('create/', RegisterView.as_view(), name='register')
+    path('create/', RegisterView.as_view(), name='register'),
 
-]
+    path('<int:pk>/', UserDetailView.as_view(), name='detail')
+
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
